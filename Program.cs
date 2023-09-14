@@ -1,4 +1,5 @@
 using GasStationService;
+using GasStationService.Fuels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<DataDbContext>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<FuelService>();
+builder.Services.AddScoped<FuelPriceService>();
 //builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
