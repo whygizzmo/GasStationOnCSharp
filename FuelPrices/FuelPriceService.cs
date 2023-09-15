@@ -22,8 +22,6 @@ public class FuelPriceService
                 e.CreatedDate <= nowDate && nowDate <= e.EndDate && e.Fuel.Id == fuelPriceRequestDto.FuelId).ToList();
         if (fuelPrices.Any())
         {
-
-
             int currentIndex = 0;
             while (fuelPrices.Skip(currentIndex).Any())
             {
@@ -50,7 +48,16 @@ public class FuelPriceService
         DateTimeOffset nowDate = DateTimeOffset.Now.ToUniversalTime().AddHours(countHoursFromUtc);
         return _context.FuelPrices
             .Include(fp => fp.Fuel)
-            .Where(e => e.CreatedDate <= nowDate && nowDate <= e.EndDate )
+            .Where(e => e.CreatedDate <= nowDate && nowDate <= e.EndDate)
+            .ToList();
+    }
+
+    public List<FuelPrice> getAllActualFuelPrices(long fuelId)
+    {
+        DateTimeOffset nowDate = DateTimeOffset.Now.ToUniversalTime().AddHours(countHoursFromUtc);
+        return _context.FuelPrices
+            .Include(fp => fp.Fuel)
+            .Where(e => e.CreatedDate <= nowDate && nowDate <= e.EndDate && e.Fuel.Id == fuelId)
             .ToList();
     }
 }

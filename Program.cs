@@ -1,5 +1,6 @@
 using GasStationService;
 using GasStationService.Fuels;
+using GasStationService.Orders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<DataDbContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<FuelService>();
 builder.Services.AddScoped<FuelPriceService>();
+builder.Services.AddScoped<OrderService>();
 //builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
