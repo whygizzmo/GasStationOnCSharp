@@ -24,4 +24,10 @@ public class OrderController : Controller
 
         return Ok("orderId = " + order.Id + " price = " + order.Amount);
     }
+
+    [HttpPut("pay")]
+    public IActionResult payOrder([FromBody] OrderPayRequestDto orderPayRequestDto)
+    {
+        return Ok(_orderService.pay(orderPayRequestDto));
+    }
 }

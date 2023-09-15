@@ -53,4 +53,30 @@ public class OrderService
 
         return order;
     }
+
+    public string pay(OrderPayRequestDto orderPayRequestDto)
+    {
+        Order order = _context.Orders.Find(orderPayRequestDto.OrderId);
+
+        if (order == null)
+        {
+            return "order not found";
+        }
+
+        order.Deposite += orderPayRequestDto.Deposite;
+        if (order.Deposite < order.Amount)
+        {
+            _context.SaveChanges();
+            return "Need " + (order.Amount - order.Deposite) + " more";
+        }
+        else
+        {
+            order.PayStatus = PayStatus.Paid;
+            order.Change = order.Deposite - order.Amount;
+        }
+
+        _context.SaveChanges();
+
+        return "successfully paid";
+    }
 }
